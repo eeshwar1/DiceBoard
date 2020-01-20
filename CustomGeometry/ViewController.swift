@@ -19,6 +19,10 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var scnView: SCNView!
     
+    @IBOutlet weak var clickRecognizer: NSClickGestureRecognizer!
+    
+    var dieNodes: [SCNNode] = []
+    
     override func viewDidLoad() {
         
         
@@ -28,12 +32,16 @@ class ViewController: NSViewController {
         
         var ground = SCNNode()
         
+        scnView.autoenablesDefaultLighting =  true
+        
        let groundGeometry = SCNFloor()
-        groundGeometry.reflectivity = 0.9
+        groundGeometry.reflectivity = 0.2
        let groundMaterial = SCNMaterial()
        groundMaterial.diffuse.contents = NSColor.gray
        groundGeometry.materials = [groundMaterial]
        ground = SCNNode(geometry: groundGeometry)
+       ground.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        
         
         scene.rootNode.addChildNode(ground)
         
@@ -41,56 +49,73 @@ class ViewController: NSViewController {
         cameraNode.camera = SCNCamera()
         scene.rootNode.addChildNode(cameraNode)
       
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
+        cameraNode.position = SCNVector3(x: 0, y: 100, z: 0)
+        cameraNode.look(at: SCNVector3(x: 0, y: 0, z: 0))
+        
         
         // create and add lights to the scene
         
         let lightNode0 = SCNNode()
         lightNode0.light =  SCNLight()
-        lightNode0.light!.type = .omni
-        lightNode0.position =  SCNVector3(x: 0, y: 10, z: 10)
+        lightNode0.light!.type = .directional
+        lightNode0.position =  SCNVector3(x: 10, y: 300, z: 10)
+        lightNode0.castsShadow = true
         scene.rootNode.addChildNode(lightNode0)
+        
+        
         
         let lightNode1 = SCNNode()
         lightNode1.light =  SCNLight()
-        lightNode1.light!.type = .ambient
-        lightNode1.position =  SCNVector3(x: 5, y: -10, z: 0)
+        lightNode1.light!.type = .directional
+        lightNode1.position =  SCNVector3(x: 100, y: 300, z: 100)
         scene.rootNode.addChildNode(lightNode1)
+        
+        let lightNode2 = SCNNode()
+        lightNode2.light =  SCNLight()
+        lightNode2.light!.type = .ambient
+        lightNode2.position =  SCNVector3(x: 100, y: 50, z: 100)
+        scene.rootNode.addChildNode(lightNode2)
         
         scnView.scene = scene
         
         scnView.allowsCameraControl = true
         scnView.showsStatistics = true
         scnView.backgroundColor = NSColor.black
-            /*
-        createOctahedron(origin: (0.0,0.0,0.0), size: 5.0)
-        */
-        createDie()
+    
         
-       /*
-        let boxGeometry = SCNBox(width: 10, height: 10, length: 10, chamferRadius: 0.0)
-        let boxNode = SCNNode(geometry: boxGeometry)
-        boxGeometry.firstMaterial?.diffuse.contents = NSColor.red
-        boxGeometry.firstMaterial?.transparency = 0.7
-        boxNode.position = SCNVector3(x: 0, y: 0, z: 0)
-        scene.rootNode.addChildNode(boxNode)
+        let boardNode = createBoard()
+       
         
-        let rotateAction = SCNAction.repeatForever(SCNAction.rotateBy(x: -.pi, y: .pi, z: 0, duration: 5))
+        scnView.scene?.rootNode.addChildNode(boardNode)
         
-        boxNode.runAction(rotateAction) */
+        let redDie = createDie(color: NSColor.red)
+        let blueDie = createDie(color: NSColor.blue)
+        let greenDie = createDie(color: NSColor.green)
+        let yellowDie = createDie(color: NSColor.yellow)
         
+        scnView.scene?.rootNode.addChildNode(redDie)
+        scnView.scene?.rootNode.addChildNode(blueDie)
+        scnView.scene?.rootNode.addChildNode(greenDie)
+        scnView.scene?.rootNode.addChildNode(yellowDie)
+        
+        dieNodes = [redDie, blueDie, greenDie, yellowDie]
+        
+        //let cameraConstraint = SCNLookAtConstraint(target: boardNode)
+        //cameraNode.constraints?.append(cameraConstraint)
+       
+      
     }
 
-    func createDie()
+    func createDie(color: NSColor) -> SCNNode
     {
         
         let dieGeometry = SCNBox(width: 10, height: 10, length: 10, chamferRadius: 1.0)
         let dieNode = SCNNode(geometry: dieGeometry)
-        dieGeometry.firstMaterial?.diffuse.contents = NSColor.red
+        dieGeometry.firstMaterial?.diffuse.contents = color
         dieGeometry.firstMaterial?.transparency = 0.99
         
-        dieNode.position = SCNVector3(x: 0, y: 10, z: 0)
-        scnView.scene?.rootNode.addChildNode(dieNode)
+        dieNode.position = SCNVector3(x: 10, y: 20, z: 0)
+       
         
         // side with 1
         
@@ -164,7 +189,7 @@ class ViewController: NSViewController {
         
         // side with 6
              
-     let dot61Node = getDotNode()
+        let dot61Node = getDotNode()
                
        dot61Node.position = SCNVector3(x: -2.5, y: 2.5, z: -5.0)
              
@@ -278,20 +303,21 @@ class ViewController: NSViewController {
                
         //dieNode.runAction(rotateAction)
         
-        dieNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
-        dieNode.physicsBody?.isAffectedByGravity = true
+        dieNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        // dieNode.physicsBody?.isAffectedByGravity = true
         
       
        
-       /* let randomX = Float.random(in: 100...200)
-        let randomY = Float.random(in: 100...200)
+       let randomX = Float.random(in: 10...20)
+        let randomY = Float.random(in: 10...20)
                
        let force = SCNVector3(x: CGFloat(randomX), y: CGFloat(randomY), z: 0)
        
        let position = SCNVector3(x: 1, y: 10, z: 1)
        
-       dieNode.physicsBody?.applyForce(force, at: position, asImpulse: true) */
+       dieNode.physicsBody?.applyForce(force, at: position, asImpulse: true)
 
+        return dieNode
     }
     
     
@@ -358,12 +384,80 @@ class ViewController: NSViewController {
         node.runAction(rotateAction)
         
     }
+    
+    func createBoard() -> SCNNode
+    {
+        let boardBaseGeometry = SCNBox(width: 200, height: 10, length: 400, chamferRadius: 0)
+        boardBaseGeometry.firstMaterial?.diffuse.contents = NSColor.brown
+        let boardNode = SCNNode(geometry: boardBaseGeometry)
+        boardNode.position = SCNVector3(x: 0, y: 0, z: 0)
+        
+        boardNode.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        
+        
+        let boardWall1Geometry = SCNBox(width: 400, height: 10, length: 50, chamferRadius: 0)
+        boardWall1Geometry.firstMaterial?.diffuse.contents = NSColor.darkGray
+        let boardWall1Node = SCNNode(geometry: boardWall1Geometry)
+        boardWall1Node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+        boardWall1Node.position = SCNVector3(x: -100, y: 0, z: 0)
+        boardWall1Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2) , y: CGFloat(Float.pi/2) ,z: 0)
+        boardNode.addChildNode(boardWall1Node)
+                       
+        let boardWall2Geometry = SCNBox(width: 400, height: 10, length: 50, chamferRadius: 0)
+        boardWall2Geometry.firstMaterial?.diffuse.contents = NSColor.darkGray
+           let boardWall2Node = SCNNode(geometry: boardWall2Geometry)
+           boardWall2Node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+           boardWall2Node.position = SCNVector3(x: 100, y: 0, z: 0)
+           boardWall2Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2) , y: CGFloat(Float.pi/2) ,z: 0)
+           boardNode.addChildNode(boardWall2Node)
+        
+        let boardWall3Geometry = SCNBox(width: 210, height: 10, length: 50, chamferRadius: 0)
+        boardWall3Geometry.firstMaterial?.diffuse.contents = NSColor.darkGray
+         let boardWall3Node = SCNNode(geometry: boardWall3Geometry)
+         boardWall3Node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+         boardWall3Node.position = SCNVector3(x: 0, y: 0, z: 205)
+         boardWall3Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2) , y: 0,z: 0)
+         boardNode.addChildNode(boardWall3Node)
+        
+        let boardWall4Geometry = SCNBox(width: 210, height: 10, length: 50, chamferRadius: 0)
+         boardWall4Geometry.firstMaterial?.diffuse.contents = NSColor.darkGray
+          let boardWall4Node = SCNNode(geometry: boardWall4Geometry)
+          boardWall4Node.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
+          boardWall4Node.position = SCNVector3(x: 0, y: 0, z: -205)
+          boardWall4Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2) , y: 0,z: 0)
+          boardNode.addChildNode(boardWall4Node)
+               
+        
+         return boardNode
+        
+        
+    }
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
     }
+    
 
+    func applyForce(node: SCNNode) {
+        
+        let randomX = Float.random(in: 10...20)
+        let randomY = Float.random(in: 10...20)
+                
+        let force = SCNVector3(x: CGFloat(randomX), y: CGFloat(randomY), z: 0)
+        
+        let position = SCNVector3(x: 1, y: 10, z: 1)
+        
+        node.physicsBody?.applyForce(force, at: position, asImpulse: true)
+
+    }
+    
+    @IBAction func applyForceClicked(sender: NSButton) {
+        
+        print("Applying Force...")
+        applyForce(node: dieNodes[1])
+    }
+    
 
 }
 
