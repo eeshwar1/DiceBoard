@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		650BF3F023D671D400AA08A3 /* VUDice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650BF3EF23D671D400AA08A3 /* VUDice.swift */; };
 		65226AB923B7A43900741D33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65226AB823B7A43900741D33 /* AppDelegate.swift */; };
 		65226ABB23B7A43900741D33 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65226ABA23B7A43900741D33 /* ViewController.swift */; };
 		65226ABD23B7A43C00741D33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65226ABC23B7A43C00741D33 /* Assets.xcassets */; };
@@ -14,13 +15,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		65226AB523B7A43900741D33 /* CustomGeometry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomGeometry.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		650BF3EF23D671D400AA08A3 /* VUDice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VUDice.swift; sourceTree = "<group>"; };
+		65226AB523B7A43900741D33 /* DiceBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DiceBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65226AB823B7A43900741D33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65226ABA23B7A43900741D33 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		65226ABC23B7A43C00741D33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65226ABF23B7A43C00741D33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		65226AC123B7A43C00741D33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		65226AC223B7A43C00741D33 /* CustomGeometry.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CustomGeometry.entitlements; sourceTree = "<group>"; };
+		65226AC223B7A43C00741D33 /* DiceBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DiceBoard.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,7 +39,7 @@
 		65226AAC23B7A43900741D33 = {
 			isa = PBXGroup;
 			children = (
-				65226AB723B7A43900741D33 /* CustomGeometry */,
+				65226AB723B7A43900741D33 /* DiceBoard */,
 				65226AB623B7A43900741D33 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,30 +47,31 @@
 		65226AB623B7A43900741D33 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				65226AB523B7A43900741D33 /* CustomGeometry.app */,
+				65226AB523B7A43900741D33 /* DiceBoard.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		65226AB723B7A43900741D33 /* CustomGeometry */ = {
+		65226AB723B7A43900741D33 /* DiceBoard */ = {
 			isa = PBXGroup;
 			children = (
 				65226AB823B7A43900741D33 /* AppDelegate.swift */,
 				65226ABA23B7A43900741D33 /* ViewController.swift */,
 				65226ABC23B7A43C00741D33 /* Assets.xcassets */,
 				65226ABE23B7A43C00741D33 /* Main.storyboard */,
+				650BF3EF23D671D400AA08A3 /* VUDice.swift */,
 				65226AC123B7A43C00741D33 /* Info.plist */,
-				65226AC223B7A43C00741D33 /* CustomGeometry.entitlements */,
+				65226AC223B7A43C00741D33 /* DiceBoard.entitlements */,
 			);
-			path = CustomGeometry;
+			path = DiceBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		65226AB423B7A43900741D33 /* CustomGeometry */ = {
+		65226AB423B7A43900741D33 /* DiceBoard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 65226AC523B7A43C00741D33 /* Build configuration list for PBXNativeTarget "CustomGeometry" */;
+			buildConfigurationList = 65226AC523B7A43C00741D33 /* Build configuration list for PBXNativeTarget "DiceBoard" */;
 			buildPhases = (
 				65226AB123B7A43900741D33 /* Sources */,
 				65226AB223B7A43900741D33 /* Frameworks */,
@@ -78,9 +81,9 @@
 			);
 			dependencies = (
 			);
-			name = CustomGeometry;
+			name = DiceBoard;
 			productName = CustomGeometry;
-			productReference = 65226AB523B7A43900741D33 /* CustomGeometry.app */;
+			productReference = 65226AB523B7A43900741D33 /* DiceBoard.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -98,7 +101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 65226AB023B7A43900741D33 /* Build configuration list for PBXProject "CustomGeometry" */;
+			buildConfigurationList = 65226AB023B7A43900741D33 /* Build configuration list for PBXProject "DiceBoard" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -111,7 +114,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				65226AB423B7A43900741D33 /* CustomGeometry */,
+				65226AB423B7A43900741D33 /* DiceBoard */,
 			);
 		};
 /* End PBXProject section */
@@ -133,6 +136,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				650BF3F023D671D400AA08A3 /* VUDice.swift in Sources */,
 				65226ABB23B7A43900741D33 /* ViewController.swift in Sources */,
 				65226AB923B7A43900741D33 /* AppDelegate.swift in Sources */,
 			);
@@ -269,17 +273,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CustomGeometry/CustomGeometry.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 74757A785Z;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = CustomGeometry/Info.plist;
+				INFOPLIST_FILE = DiceBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.venkyul.CustomGeometry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.venkyul.DiceBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -289,17 +293,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CustomGeometry/CustomGeometry.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 74757A785Z;
 				ENABLE_HARDENED_RUNTIME = YES;
-				INFOPLIST_FILE = CustomGeometry/Info.plist;
+				INFOPLIST_FILE = DiceBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.venkyul.CustomGeometry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.venkyul.DiceBoard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -308,7 +312,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		65226AB023B7A43900741D33 /* Build configuration list for PBXProject "CustomGeometry" */ = {
+		65226AB023B7A43900741D33 /* Build configuration list for PBXProject "DiceBoard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65226AC323B7A43C00741D33 /* Debug */,
@@ -317,7 +321,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		65226AC523B7A43C00741D33 /* Build configuration list for PBXNativeTarget "CustomGeometry" */ = {
+		65226AC523B7A43C00741D33 /* Build configuration list for PBXNativeTarget "DiceBoard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				65226AC623B7A43C00741D33 /* Debug */,
