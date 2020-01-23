@@ -688,9 +688,8 @@
                     <window key="window" title="Dice Board" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="196" y="240" width="620" height="480"/>
+                        <rect key="contentRect" x="196" y="240" width="1024" height="768"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="620" height="480"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>
                         </connections>
@@ -708,17 +707,20 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="DiceBoard" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="620" height="258"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1116" height="460"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <sceneView translatesAutoresizingMaskIntoConstraints="NO" id="NnD-Ws-Y4b">
-                                <rect key="frame" x="10" y="10" width="423" height="238"/>
+                                <rect key="frame" x="10" y="10" width="782" height="440"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="NnD-Ws-Y4b" secondAttribute="height" multiplier="16:9" id="Rv2-r6-ZzG"/>
                                 </constraints>
                             </sceneView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ufe-Mu-x4I">
-                                <rect key="frame" x="449" y="112" width="113" height="32"/>
+                                <rect key="frame" x="796" y="213" width="112" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="eA1-1c-fcm"/>
+                                </constraints>
                                 <buttonCell key="cell" type="push" title="Throw Dice" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="csY-xK-Hcs">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -730,8 +732,8 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="NnD-Ws-Y4b" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="10" id="3xO-gB-GBa"/>
-                            <constraint firstAttribute="trailing" secondItem="ufe-Mu-x4I" secondAttribute="trailing" constant="64" id="6r9-l4-ND8"/>
-                            <constraint firstItem="ufe-Mu-x4I" firstAttribute="leading" secondItem="NnD-Ws-Y4b" secondAttribute="trailing" constant="22" id="K1J-aI-TAx"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ufe-Mu-x4I" secondAttribute="trailing" constant="10" id="6r9-l4-ND8"/>
+                            <constraint firstItem="ufe-Mu-x4I" firstAttribute="leading" secondItem="NnD-Ws-Y4b" secondAttribute="trailing" constant="10" id="K1J-aI-TAx"/>
                             <constraint firstItem="NnD-Ws-Y4b" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="10" id="VeU-be-DB5"/>
                             <constraint firstItem="ufe-Mu-x4I" firstAttribute="centerY" secondItem="m2S-Jp-Qdl" secondAttribute="centerY" id="a5w-zz-Mjt"/>
                             <constraint firstAttribute="bottom" secondItem="NnD-Ws-Y4b" secondAttribute="bottom" constant="10" id="kdV-dZ-jBf"/>
@@ -743,7 +745,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="212" y="1101"/>
+            <point key="canvasLocation" x="460" y="1213"/>
         </scene>
     </scenes>
 </document>
