@@ -12,8 +12,8 @@ import SceneKit
 
 class VUDice {
     
-    var dotRadius: CGFloat = 1.0
-    var dotDepth:  CGFloat = 0.1
+    var pipRadius: CGFloat = 1.0
+    var pipDepth:  CGFloat = 0.1
     
     var size: CGFloat = 10.0 {
         didSet {
@@ -22,37 +22,36 @@ class VUDice {
         }
     }
     var color: NSColor = NSColor.red
-    var dotColor: NSColor = NSColor.white
+    var pipColor: NSColor = NSColor.white
     var initialPosition =  SCNVector3(x: 0, y: 0, z: 0)
-
     
     required init() {
         
     }
    
     
-    init(size: CGFloat, color: NSColor, dotColor: NSColor) {
+    init(size: CGFloat, color: NSColor, pipColor: NSColor) {
           self.size = size
           self.color = color
-          self.dotColor = dotColor
+          self.pipColor = pipColor
         
-          setupDotSize()
+          setuppipSize()
         
     }
     
-    init(size: CGFloat, color: NSColor, dotColor: NSColor, initialPosition: SCNVector3) {
+    init(size: CGFloat, color: NSColor, pipColor: NSColor, initialPosition: SCNVector3) {
            self.size = size
            self.color = color
-           self.dotColor = dotColor
+           self.pipColor = pipColor
            self.initialPosition = initialPosition
         
-            setupDotSize()
+            setuppipSize()
     }
     
-    func setupDotSize () {
+    func setuppipSize () {
         
-        self.dotRadius = size/10
-        self.dotDepth = size/100
+        self.pipRadius = size/10
+        self.pipDepth = size/100
     }
     func createNode() -> SCNNode
     {
@@ -63,189 +62,190 @@ class VUDice {
         dieGeometry.firstMaterial?.transparency = 0.95
         
         dieNode.position = self.initialPosition
+    
        
         // side with 1
         
-        let dot11Node = getDotNode(dotColor: dotColor)
+        let pip11Node = getpipNode(pipColor: pipColor)
         
-        dot11Node.position = SCNVector3(x: 0, y: 0, z: size/2)
+        pip11Node.position = SCNVector3(x: 0, y: 0, z: size/2)
         
-        dot11Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: 0, z: 0)
+        pip11Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: 0, z: 0)
         
-        dieNode.addChildNode(dot11Node)
+        dieNode.addChildNode(pip11Node)
         
         // side with 2
     
-        let dot21Node = getDotNode(dotColor: dotColor)
+        let pip21Node = getpipNode(pipColor: pipColor)
       
-        dot21Node.position = SCNVector3(x: size/4, y: size/2, z: -size/4)
+        pip21Node.position = SCNVector3(x: size/4, y: size/2, z: -size/4)
         
-        dot21Node.eulerAngles = SCNVector3(x: 0, y: 0, z: 0)
+        pip21Node.eulerAngles = SCNVector3(x: 0, y: 0, z: 0)
         
-        dieNode.addChildNode(dot21Node)
+        dieNode.addChildNode(pip21Node)
     
         
-        let dot22Node = getDotNode(dotColor: dotColor)
+        let pip22Node = getpipNode(pipColor: pipColor)
           
-        dot22Node.position = SCNVector3(x: -size/4, y: size/2, z: size/4)
+        pip22Node.position = SCNVector3(x: -size/4, y: size/2, z: size/4)
             
-        dot22Node.eulerAngles = SCNVector3(x: 0, y: 0, z: 0)
+        pip22Node.eulerAngles = SCNVector3(x: 0, y: 0, z: 0)
         
-        dieNode.addChildNode(dot22Node)
+        dieNode.addChildNode(pip22Node)
         
         // side with 5
           
-        let dot51Node = getDotNode(dotColor: dotColor)
+        let pip51Node = getpipNode(pipColor: pipColor)
             
-        dot51Node.position = SCNVector3(x: 0, y: -size/2, z: 0)
+        pip51Node.position = SCNVector3(x: 0, y: -size/2, z: 0)
               
-        dot51Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
+        pip51Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
               
-        dieNode.addChildNode(dot51Node)
+        dieNode.addChildNode(pip51Node)
               
-        let dot52Node = getDotNode(dotColor: dotColor)
+        let pip52Node = getpipNode(pipColor: pipColor)
                 
-        dot52Node.position = SCNVector3(x: size/4, y: -size/2, z: size/4)
+        pip52Node.position = SCNVector3(x: size/4, y: -size/2, z: size/4)
                   
-        dot52Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
+        pip52Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
               
-        dieNode.addChildNode(dot52Node)
+        dieNode.addChildNode(pip52Node)
               
-        let dot53Node = getDotNode(dotColor: dotColor)
+        let pip53Node = getpipNode(pipColor: pipColor)
                 
-        dot53Node.position = SCNVector3(x: -size/4, y: -size/2, z: size/4)
+        pip53Node.position = SCNVector3(x: -size/4, y: -size/2, z: size/4)
                   
-        dot53Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
+        pip53Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
               
-        dieNode.addChildNode(dot53Node)
+        dieNode.addChildNode(pip53Node)
               
-        let dot54Node = getDotNode(dotColor: dotColor)
+        let pip54Node = getpipNode(pipColor: pipColor)
                 
-        dot54Node.position = SCNVector3(x: size/4, y: -size/2, z: -size/4)
+        pip54Node.position = SCNVector3(x: size/4, y: -size/2, z: -size/4)
                   
-        dot54Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
+        pip54Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
               
-        dieNode.addChildNode(dot54Node)
+        dieNode.addChildNode(pip54Node)
                     
-        let dot55Node = getDotNode(dotColor: dotColor)
+        let pip55Node = getpipNode(pipColor: pipColor)
                       
-        dot55Node.position = SCNVector3(x: -size/4, y: -size/2, z: -size/4)
+        pip55Node.position = SCNVector3(x: -size/4, y: -size/2, z: -size/4)
                         
-        dot55Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
+        pip55Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi), y: 0, z: 0)
                     
-        dieNode.addChildNode(dot55Node)
+        dieNode.addChildNode(pip55Node)
         
         
         // side with 6
              
-        let dot61Node = getDotNode(dotColor: dotColor)
+        let pip61Node = getpipNode(pipColor: pipColor)
                
-       dot61Node.position = SCNVector3(x: -size/4, y: size/4, z: -size/2)
+       pip61Node.position = SCNVector3(x: -size/4, y: size/4, z: -size/2)
              
-       dot61Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
+       pip61Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
              
-       dieNode.addChildNode(dot61Node)
+       dieNode.addChildNode(pip61Node)
              
-       let dot62Node = getDotNode(dotColor: dotColor)
+       let pip62Node = getpipNode(pipColor: pipColor)
                
-       dot62Node.position = SCNVector3(x: -size/4, y: -size/4, z: -size/2)
+       pip62Node.position = SCNVector3(x: -size/4, y: -size/4, z: -size/2)
                  
-       dot62Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
+       pip62Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
              
-       dieNode.addChildNode(dot62Node)
+       dieNode.addChildNode(pip62Node)
              
-        let dot63Node = getDotNode(dotColor: dotColor)
+        let pip63Node = getpipNode(pipColor: pipColor)
                
-        dot63Node.position = SCNVector3(x: -size/4, y: 0.0, z: -size/2)
+        pip63Node.position = SCNVector3(x: -size/4, y: 0.0, z: -size/2)
                  
-       dot63Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
+       pip63Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
              
-       dieNode.addChildNode(dot63Node)
+       dieNode.addChildNode(pip63Node)
              
-       let dot64Node = getDotNode(dotColor: dotColor)
+       let pip64Node = getpipNode(pipColor: pipColor)
                
-        dot64Node.position = SCNVector3(x: size/4, y: -size/4, z: -size/2)
+        pip64Node.position = SCNVector3(x: size/4, y: -size/4, z: -size/2)
                  
-       dot64Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
+       pip64Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
              
-       dieNode.addChildNode(dot64Node)
+       dieNode.addChildNode(pip64Node)
                    
-       let dot65Node = getDotNode(dotColor: dotColor)
+       let pip65Node = getpipNode(pipColor: pipColor)
                      
-        dot65Node.position = SCNVector3(x: size/4, y: 0.0, z: -size/2)
+        pip65Node.position = SCNVector3(x: size/4, y: 0.0, z: -size/2)
                        
-       dot65Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
+       pip65Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
                    
-       dieNode.addChildNode(dot65Node)
+       dieNode.addChildNode(pip65Node)
         
-       let dot66Node = getDotNode(dotColor: dotColor)
+       let pip66Node = getpipNode(pipColor: pipColor)
                            
-        dot66Node.position = SCNVector3(x: size/4, y: size/4, z: -size/2)
+        pip66Node.position = SCNVector3(x: size/4, y: size/4, z: -size/2)
                          
-        dot66Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
+        pip66Node.eulerAngles = SCNVector3(x: -CGFloat(Float.pi/2), y: 0, z: 0)
                      
-        dieNode.addChildNode(dot66Node)
+        dieNode.addChildNode(pip66Node)
        
         // side with 3
                   
-        let dot31Node = getDotNode(dotColor: dotColor)
+        let pip31Node = getpipNode(pipColor: pipColor)
                 
-        dot31Node.position = SCNVector3(x: -size/2, y: size/4, z: size/4)
+        pip31Node.position = SCNVector3(x: -size/2, y: size/4, z: size/4)
               
-        dot31Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: CGFloat(Float.pi/2) ,z: 0)
+        pip31Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: CGFloat(Float.pi/2) ,z: 0)
               
-        dieNode.addChildNode(dot31Node)
+        dieNode.addChildNode(pip31Node)
         
-        let dot32Node = getDotNode(dotColor: dotColor)
+        let pip32Node = getpipNode(pipColor: pipColor)
                 
-        dot32Node.position = SCNVector3(x: -size/2, y: 0, z: 0)
+        pip32Node.position = SCNVector3(x: -size/2, y: 0, z: 0)
               
-        dot32Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: CGFloat(Float.pi/2) ,z: 0)
+        pip32Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: CGFloat(Float.pi/2) ,z: 0)
               
-        dieNode.addChildNode(dot32Node)
+        dieNode.addChildNode(pip32Node)
         
-        let dot33Node = getDotNode(dotColor: dotColor)
+        let pip33Node = getpipNode(pipColor: pipColor)
                 
-        dot33Node.position = SCNVector3(x: -size/2, y: -size/4, z: -size/4)
+        pip33Node.position = SCNVector3(x: -size/2, y: -size/4, z: -size/4)
               
-        dot33Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: CGFloat(Float.pi/2) ,z: 0)
+        pip33Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: CGFloat(Float.pi/2) ,z: 0)
               
-        dieNode.addChildNode(dot33Node)
+        dieNode.addChildNode(pip33Node)
         
         // side with 4
                         
-      let dot41Node = getDotNode(dotColor: dotColor)
+      let pip41Node = getpipNode(pipColor: pipColor)
               
-      dot41Node.position = SCNVector3(x: size/2, y: size/4, z: -size/4)
+      pip41Node.position = SCNVector3(x: size/2, y: size/4, z: -size/4)
             
-      dot41Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
+      pip41Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
             
-      dieNode.addChildNode(dot41Node)
+      dieNode.addChildNode(pip41Node)
         
         
-        let dot42Node = getDotNode(dotColor: dotColor)
+        let pip42Node = getpipNode(pipColor: pipColor)
                      
-        dot42Node.position = SCNVector3(x: size/2, y: -size/4, z: -size/4)
+        pip42Node.position = SCNVector3(x: size/2, y: -size/4, z: -size/4)
                
-         dot42Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
+         pip42Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
                
-         dieNode.addChildNode(dot42Node)
+         dieNode.addChildNode(pip42Node)
         
-        let dot43Node = getDotNode(dotColor: dotColor)
+        let pip43Node = getpipNode(pipColor: pipColor)
                            
-      dot43Node.position = SCNVector3(x: size/2, y: -size/4, z: size/4)
+       pip43Node.position = SCNVector3(x: size/2, y: -size/4, z: size/4)
              
-       dot43Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
+       pip43Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
              
-       dieNode.addChildNode(dot43Node)
+       dieNode.addChildNode(pip43Node)
         
-        let dot44Node = getDotNode(dotColor: dotColor)
+        let pip44Node = getpipNode(pipColor: pipColor)
         
-        dot44Node.position = SCNVector3(x: size/2, y: size/4, z: size/4)
+        pip44Node.position = SCNVector3(x: size/2, y: size/4, z: size/4)
               
-        dot44Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
+        pip44Node.eulerAngles = SCNVector3(x: CGFloat(Float.pi/2), y: -CGFloat(Float.pi/2) ,z: 0)
               
-        dieNode.addChildNode(dot44Node)
+        dieNode.addChildNode(pip44Node)
  
         dieNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         
@@ -254,14 +254,14 @@ class VUDice {
     
     }
     
-    func getDotNode(dotColor: NSColor) -> SCNNode
+    func getpipNode(pipColor: NSColor) -> SCNNode
     {
-        let dotGeometry =  SCNCylinder(radius: dotRadius, height: dotDepth)
-        dotGeometry.firstMaterial?.diffuse.contents = dotColor
+        let pipGeometry =  SCNCylinder(radius: pipRadius, height: pipDepth)
+        pipGeometry.firstMaterial?.diffuse.contents = pipColor
               
-        let dotNode = SCNNode(geometry: dotGeometry)
+        let pipNode = SCNNode(geometry: pipGeometry)
         
-        return dotNode
+        return pipNode
     }
 
 }

@@ -11,9 +11,17 @@ import SceneKit
 
 struct Constants {
     
-    static let dotRadius: CGFloat = 1.0
-    static let dotDepth:  CGFloat = 0.1
+    static let dieColors : [(dieColor: NSColor, pipColor: NSColor)] =
+        [(NSColor.red, NSColor.white),
+         (NSColor.yellow, NSColor.black),
+         (NSColor.purple, NSColor.white),
+         (NSColor.green, NSColor.white),
+         (NSColor.blue, NSColor.white),
+         (NSColor.gray, NSColor.white)
+    ]
 }
+
+
 class ViewController: NSViewController {
     
     
@@ -30,14 +38,15 @@ class ViewController: NSViewController {
 
         let scene = SCNScene()
         
+        
         var ground = SCNNode()
         
-        scnView.autoenablesDefaultLighting =  false
+        scnView.autoenablesDefaultLighting =  true
         
        let groundGeometry = SCNFloor()
         groundGeometry.reflectivity = 0.2
        let groundMaterial = SCNMaterial()
-        groundMaterial.diffuse.contents = NSColor.green
+        groundMaterial.diffuse.contents = NSColor.gray
        groundGeometry.materials = [groundMaterial]
        ground = SCNNode(geometry: groundGeometry)
        ground.physicsBody = SCNPhysicsBody(type: .kinematic, shape: nil)
@@ -56,43 +65,66 @@ class ViewController: NSViewController {
         
         
         // create and add lights to the scene
-        
-        
-        let lightNode0 = SCNNode()
-        lightNode0.light =  SCNLight()
-        lightNode0.light!.type = .omni
-        lightNode0.light!.color = NSColor.white
-        lightNode0.light!.intensity = 1_000
-        lightNode0.light!.zFar = 200
-        lightNode0.position =  SCNVector3(x: 0, y: 150, z: 0)
-        // lightNode0.castsShadow = true
-        scene.rootNode.addChildNode(lightNode0)
-        
-        
+      
         
         let lightNode1 = SCNNode()
-        lightNode1.light =  SCNLight()
-        lightNode1.light!.type = .ambient
-        lightNode1.position =  SCNVector3(x: 100, y: 50, z: 100)
-        scene.rootNode.addChildNode(lightNode1)
         
+        let spotLight1 =  SCNLight()
+        spotLight1.type = .spot
+        spotLight1.color = NSColor.white
+        spotLight1.spotInnerAngle = 0
+        spotLight1.spotOuterAngle = 180
+        spotLight1.intensity = 5_000
+        spotLight1.castsShadow = true
+        spotLight1.doubleSided = true
+        
+        lightNode1.light = spotLight1
+        lightNode1.position = SCNVector3(x: 0, y: 100, z: 0)
+        scene.rootNode.addChildNode(lightNode1)
+       
+        
+        let lightNode2 = SCNNode()
+        
+        let spotLight2 = SCNLight()
+        spotLight2.type = .spot
+        spotLight2.spotInnerAngle = 0
+        spotLight2.spotOuterAngle = 180
+        spotLight2.intensity = 5_000
+        spotLight2.color = NSColor.white
+        spotLight2.castsShadow = true
+        lightNode2.light = spotLight2
+        lightNode2.position = SCNVector3(x: 200, y: 100, z: 100)
+        scene.rootNode.addChildNode(lightNode2)
+        
+        
+        let lightNode3 = SCNNode()
+        
+        let omniLight1 = SCNLight()
+        omniLight1.type = .omni
+        lightNode3.light = omniLight1
+        lightNode3.position = SCNVector3(x: 0, y: 100, z: 100)
+        scene.rootNode.addChildNode(lightNode3)
         
         scnView.scene = scene
         
-        // scnView.allowsCameraControl = true
-        scnView.showsStatistics = true
-        scnView.backgroundColor = NSColor.init(white: 1.0, alpha: 0.7)
-    
+        scnView.allowsCameraControl = true
+        //scnView.showsStatistics = true
+        scnView.backgroundColor = NSColor.darkGray
         
         let boardNode = createBoard(length: 200, width: 100, height: 30)
        
         
         scnView.scene?.rootNode.addChildNode(boardNode)
         
-        let redDie = VUDice(size: 10.0, color: NSColor.red, dotColor: NSColor.white)
-        let blueDie = VUDice(size: 10.0, color: NSColor.blue, dotColor: NSColor.white)
-        let greenDie = VUDice(size: 10.0, color: NSColor.green, dotColor: NSColor.white)
-        let yellowDie = VUDice(size: 10.0, color: NSColor.yellow, dotColor: NSColor.black)
+        let redDie = VUDice(size: 10.0, color: NSColor.red, pipColor: NSColor.white)
+        let blueDie = VUDice(size: 10.0, color: NSColor.blue, pipColor: NSColor.white)
+        let greenDie = VUDice(size: 10.0, color: NSColor.green, pipColor: NSColor.white)
+        let yellowDie = VUDice(size: 10.0, color: NSColor.yellow, pipColor: NSColor.black)
+        
+        
+            
+        
+        
                 
         dieNodes = [redDie.createNode(), blueDie.createNode(), greenDie.createNode(), yellowDie.createNode()]
         
@@ -103,9 +135,22 @@ class ViewController: NSViewController {
         }
         
       
+        for dieColor in Constants.dieColors {
+            print("Die Color: \(dieColor.dieColor) pipColor: \(dieColor.pipColor)")
+        }
+      
     }
 
     
+    func throwDie()
+    {
+        let colorCombo = Constants.dieColors[Int.random(in: 0...Constants.dieColors.count-1)]
+        let dieNode = VUDice(size: 10.0, color: colorCombo.dieColor, pipColor: colorCombo.pipColor, initialPosition: SCNVector3(x: 40, y: 10, z: -100)).createNode()
+        
+        let force = SCNVector3(x: CGFloat(Float.random(in: -10...10)),y: CGFloat(Float.random(in: -40...10)), z: CGFloat(Float.random(in: 10...40)))
+        scnView.scene?.rootNode.addChildNode(dieNode)
+        dieNode.physicsBody?.applyForce(force, at: SCNVector3(x: 10, y: 10, z: 10), asImpulse: true)
+    }
     
     func createOctahedron(origin: (x: Double, y: Double, z: Double), size: Double)
     {
@@ -231,6 +276,21 @@ class ViewController: NSViewController {
         
     }
     
+    
+    @IBAction func resetDice(sender: NSButton) {
+    
+        
+        for node in dieNodes {
+            node.position = SCNVector3(x: 0, y: 0, z: 0)
+        }
+        
+    }
+    
+    @IBAction func throwDieIn(sender: NSButton) {
+       
+          throwDie()
+           
+    }
 
 }
 
